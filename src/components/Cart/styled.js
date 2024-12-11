@@ -1,4 +1,4 @@
-// src/components/Cart/styled.js
+
 import styled from 'styled-components';
 
 export const CartContainer = styled.div`

@@ -1,4 +1,4 @@
-// src/components/PostCheckout/styled.js
+
 import styled from 'styled-components';
 
 export const Container = styled.div`

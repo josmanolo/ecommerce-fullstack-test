@@ -1,4 +1,4 @@
-// src/components/CheckoutForm/ShippingStep.js
+
 import React from 'react';
 import { Label, Input, Button } from './styled';
 

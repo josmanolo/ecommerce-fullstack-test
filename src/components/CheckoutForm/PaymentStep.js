@@ -1,4 +1,4 @@
-// src/components/CheckoutForm/PaymentStep.js
+
 import React, { useState } from 'react';
 import { Label, Input, Button } from './styled';
 
@@ -9,7 +9,6 @@ const PaymentStep = ({ paymentMethod, setPaymentMethod, nextStep, prevStep }) =>
 
   const handlePaymentSave = (e) => {
     e.preventDefault();
-    // Here we can combine all the payment details into a single string or object
     setPaymentMethod(`Card ending in ${cardNumber.slice(-4)}, Expiry: ${expiryDate}`);
     nextStep();
   };

@@ -1,4 +1,3 @@
-// src/components/ProductCard/index.js
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
@@ -13,9 +12,9 @@ const ProductCard = ({ product }) => {
 
   return (
     <Card>
-      <Image src={product.image} alt={product.title} />
+      <Image src={product.imageUrl} alt={product.name} />
       <Info>
-        <Title>{product.title}</Title>
+        <Title>{product.name}</Title>
         <Price>${product.price}</Price>
         <AddButton onClick={handleAddToCart}>Add to Cart</AddButton>
       </Info>

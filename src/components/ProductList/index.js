@@ -1,15 +1,29 @@
-// src/components/ProductList/index.js
-import React from 'react';
-import { useSelector } from 'react-redux';
-import ProductCard from '../ProductCard';
-import { List } from './styled';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProductCard from "../ProductCard";
+import { List } from "./styled";
+import { fetchProducts } from "../../redux/slices/productSlice";
+import { ASYNC_STATUS } from "../../constants/asyncStatus";
 
 const ProductList = () => {
-  const products = useSelector((state) => state.products.items);
+  const dispatch = useDispatch();
+  const { items, status } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  if (status === ASYNC_STATUS.PENDING) {
+    return <div>Loading...</div>;
+  }
+
+  if (status === ASYNC_STATUS.REJECTED) {
+    return <div>Error loading products</div>;
+  }
 
   return (
     <List>
-      {products.map((product) => (
+      {items.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </List>

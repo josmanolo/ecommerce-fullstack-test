@@ -1,4 +1,4 @@
-// src/components/CheckoutForm/index.js
+
 import React, { useState } from 'react';
 import ShippingStep from './ShippingStep';
 import PaymentStep from './PaymentStep';

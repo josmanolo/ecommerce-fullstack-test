@@ -1,19 +1,29 @@
-// src/components/Cart/index.js
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/slices/cartSlice';
-import { CartContainer, CartItem, ItemDetails, RemoveButton, Total, CheckoutButton } from './styled';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart, removeFromCart } from "../../redux/slices/cartSlice";
+import {
+  CartContainer,
+  CartItem,
+  ItemDetails,
+  RemoveButton,
+  Total,
+  CheckoutButton,
+} from "./styled";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
 
   const handleRemove = (id) => {
     dispatch(removeFromCart({ id }));
   };
 
-  const totalAmount = cartItems.reduce((total, item) => total + item.price, 0);
+  const handleClear = () => {
+    dispatch(clearCart());
+  }
+
+  const totalAmount = cartItems.reduce((total, item) => total + Number(item.price), 0);
 
   return (
     <CartContainer>
@@ -24,22 +34,25 @@ const Cart = () => {
         cartItems.map((item) => (
           <CartItem key={item.id}>
             <ItemDetails>
-              <img src={item.image} alt={item.title} />
+              <img src={item.imageUrl} alt={item.name} />
               <div>
-                <h3>{item.title}</h3>
+                <h3>{item.name}</h3>
                 <p>${item.price}</p>
               </div>
             </ItemDetails>
-            <RemoveButton onClick={() => handleRemove(item.id)}>Remove</RemoveButton>
+            <RemoveButton onClick={() => handleRemove(item.id)}>
+              Remove
+            </RemoveButton>
           </CartItem>
         ))
       )}
-      <Total>Total: ${totalAmount.toFixed(2)}</Total>
+      <Total>Total: ${totalAmount}</Total>
       {cartItems.length > 0 && (
         <Link to="/checkout">
           <CheckoutButton>Proceed to Checkout</CheckoutButton>
         </Link>
       )}
+      <CheckoutButton onClick={handleClear}>Clear Cart</CheckoutButton>
     </CartContainer>
   );
 };
